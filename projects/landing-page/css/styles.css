@@ -88,6 +88,17 @@ section {
     transition: ease 0.3s all;
 }
 
+/* My NavBar Added Styles */
+#navbar__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background: red;
+    opacity: 0.5;
+    font-size: 2rem;
+}
+
+
 /* Header Styles */
 .page__header {
     background: #fff;
