@@ -40,6 +40,7 @@ const sectionHeadings = document.getElementsByClassName("section__heading");
 
 // Build the nav
 
+//make each section into an unordered list item
 function makeLi (sections) {
     for(let i=0; i < sections.length; i++) {
         let section = sections[i];
@@ -50,37 +51,35 @@ function makeLi (sections) {
 makeLi(sections)
 
 
-
-//getting text from h2 elements, cloned so don't modify initial html. May need to rename as doing more now
+//get the text from the section headings to put into a nav
 function getHeadingText(sectionHeadings) {
     for (let i=0; i < sectionHeadings.length; i++) {
         let sectionHeading = sectionHeadings[i]
+        //clone each heading so that we can use it without modifying the existing headings
         let clone = sectionHeading.cloneNode(true);
+        //take the textContent from each heading clone
         let cloneText = clone.textContent
         console.log(cloneText)
-        // clickNav(cloneText)
-
+        //append the cloned text onto a navbar
         let appendedNavbar = navbarList.append(cloneText)
 
-        //wouldl ike to do the clickNav but seems to return it to Section 1 only and it doesn't work...hrm...
-        //is it b/c appendedNavbar is one list?
-        // clickNav(appendedNavbar)
-        
-    }
+        // this creates a TypeError and modifies the Navbar to only include Section 1.
+        // clickNav(cloneText)
 
+        //When I try this it modifies the Navbar to only include Section 1.
+        // clickNav(appendedNavbar)        
+    }
 }
 
 getHeadingText(sectionHeadings)
 
 function clickNav (ele) {
     ele.addEventListener("click", function(event) {
-        console.log("pudddddddddding")
+        console.log("The click worked!")
 
         event.preventDefault();
     }  )
 }
-
-
 
 
 
