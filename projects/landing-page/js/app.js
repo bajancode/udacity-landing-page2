@@ -50,38 +50,54 @@ function makeLi (sections) {
 
 makeLi(sections)
 
+//remove active class from all sections
+let removeClass = function (sections) {
+    for(let i = 0; i < sections.length; i++) {
+        let section = sections[i];       
+        section.removeAttribute("class", "your-active-class");
+    }
+}
 
-//get the text from the section headings to put into a nav
-function getHeadingText(sectionHeadings) {
+//add active class to just one element
+let addClass = function (section) {
+    section.addAttribute("class", "your-active-class");
+}
+
+//Gets text from heading elements - scope has expanded, need to refactor and take out other stuff as it now also makes them into a navbar, and onClick removes all clases from sections
+
+let getHeadingText = function(sectionHeadings) {
     for (let i=0; i < sectionHeadings.length; i++) {
         let sectionHeading = sectionHeadings[i]
         //clone each heading so that we can use it without modifying the existing headings
         let clone = sectionHeading.cloneNode(true);
-        //take the textContent from each heading clone
-        let cloneText = clone.textContent
-        console.log(cloneText)
-        //append the cloned text onto a navbar
-        let appendedNavbar = navbarList.append(cloneText)
+        //create an anchor element
+        let anchor = document.createElement("a")
+         //take the textContent from each heading clone and add it to the anchor
+        anchor.textContent = clone.textContent
 
-        // this creates a TypeError and modifies the Navbar to only include Section 1.
-        // clickNav(cloneText)
+         //append the cloned text onto navbar
+         let appendedNavbar = navbarList.append(anchor)
 
-        //When I try this it modifies the Navbar to only include Section 1.
-        // clickNav(appendedNavbar)        
+        //add click event which removes active classes, adds active-class to clicked element, and scrolls to the section
+        anchor.addEventListener("click", function(event) {
+        event.preventDefault();
+        //Remove any section classes
+        removeClass(sections);
+
+        //add section classes (not working)
+        addClass(event.target.closest("section"))
+        // this also didn't work:
+        //event.target.closest("section").addClass("your-active-class")
+
+        //scroll into view of the sectionHeading
+        sectionHeading.scrollIntoView({ behavior: 'smooth' })
+
+     })
+  
     }
 }
 
 getHeadingText(sectionHeadings)
-
-function clickNav (ele) {
-    ele.addEventListener("click", function(event) {
-        console.log("The click worked!")
-
-        event.preventDefault();
-    }  )
-}
-
-
 
 
 
